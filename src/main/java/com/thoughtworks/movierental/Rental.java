@@ -17,4 +17,16 @@ public class Rental {
   public Movie getMovie() {
     return movie;
   }
+
+  int getFrequentRenterPoints() {
+    int frequentRenterPoints = 1;
+    if (isaBonusApplicable()) frequentRenterPoints++;
+    return frequentRenterPoints;
+  }
+
+  private boolean isaBonusApplicable() {
+    return (getMovie().getPriceCode() == Movie.NEW_RELEASE)
+        &&
+        getDaysRented() > 1;
+  }
 }
