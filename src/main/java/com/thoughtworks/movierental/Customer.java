@@ -51,4 +51,19 @@ public class Customer {
     return totalAmount;
   }
 
+    public String htmlStatement() {
+        String headerHTML = String.format(
+                "<h1>Rental Record for <b>%s</b></h1><br/>", getName());
+        String bodyHTML="";
+        for (Rental each : rentals) {
+            //show figures for this rental
+            bodyHTML += String.format("<p>%s<&nbsp>%s<br/></p>", each.getMovie().getTitle(),
+                    String.valueOf(each.getThisAmount()));
+        }
+        //add footer lines resultHTML
+        String footerHTML =
+                String.format("Amount owed is <b>%s</b><br/>You earned <b>%s</b> frequent renter points",
+                String.valueOf(totalAmount()), String.valueOf(totalFrequentRenterPoints()));
+        return headerHTML + bodyHTML + footerHTML;
+  }
 }

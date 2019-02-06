@@ -46,4 +46,20 @@ public class CustomerTest {
                 "Amount owed is 6.5\n" +
                 "You earned 1 frequent renter points", this.c.statement());
     }
+
+    @Test
+    public void htmlStatementShuldReturnTypeString() {
+        String k = new String();
+        assertThat(c.htmlStatement(), instanceOf(k.getClass()));
+    }
+
+    @Test
+    public void htmlStatementShuldReturnExactString() {
+        Movie movieObject = new Movie("tezab", 0);
+        int daysRented = 5;
+        c.addRental(new Rental(movieObject, daysRented));
+        assertEquals("<h1>Rental Record for <b>testuser</b></h1><br/>" +
+                "<p>tezab<&nbsp>6.5<br/></p>Amount owed is <b>6.5</b><br/>" +
+                "You earned <b>1</b> frequent renter points", c.htmlStatement());
+    }
 }
