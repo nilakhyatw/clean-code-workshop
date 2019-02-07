@@ -20,22 +20,10 @@ public class Customer {
   }
 
   public String statement() {
-    String result = "Rental Record for " + getName() + "\n";
-
-    for (Rental each : rentals) {
-      //show figures for this rental
-      result += "\t" + each.getMovie().getTitle() + "\t" +
-          String.valueOf(each.getThisAmount()) + "\n";
-    }
-
-    //add footer lines result
-    result += "Amount owed is " + String.valueOf(totalAmount()) + "\n";
-    result += "You earned " + String.valueOf(totalFrequentRenterPoints())
-        + " frequent renter points";
-    return result;
+      return new TextStatement().display(this);
   }
 
-  private int totalFrequentRenterPoints() {
+    private int totalFrequentRenterPoints() {
     int frequentRenterPoints = 0;
     for (Rental each : rentals) {
       frequentRenterPoints += each.getFrequentRenterPoints();
@@ -66,4 +54,22 @@ public class Customer {
                 String.valueOf(totalAmount()), String.valueOf(totalFrequentRenterPoints()));
         return headerHTML + bodyHTML + footerHTML;
   }
+
+    private class TextStatement {
+        public String display(Customer customer) {
+            String result = "Rental Record for " + customer.getName() + "\n";
+
+            for (Rental each : customer.rentals) {
+              //show figures for this rental
+              result += "\t" + each.getMovie().getTitle() + "\t" +
+                  String.valueOf(each.getThisAmount()) + "\n";
+            }
+
+            //add footer lines result
+            result += "Amount owed is " + String.valueOf(customer.totalAmount()) + "\n";
+            result += "You earned " + String.valueOf(customer.totalFrequentRenterPoints())
+                + " frequent renter points";
+            return result;
+        }
+    }
 }
